@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 import Aux from '../../hoc/Aux';
 import Burger from '../../components/Burger/Burger'
-import BuildControls from '../../components/Burger/BuildControls/BuildControls'
+import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
+import Modal from '../../components/UI/Modal/Modal'
 
 const Prices = {
     salad: 1.9,
@@ -20,7 +22,8 @@ class BurgerBuilder extends Component {
             bacon: 0
         },
         totalPrice: 0,
-        purchaseable: false
+        purchaseable: false,
+        purchasing: false
     };
 
     // object to array
@@ -65,6 +68,19 @@ class BurgerBuilder extends Component {
         this.updatePurchase(updatedIng);
     };
 
+    hideShowHandler = () => {
+        this.setState({purchasing: true})
+    };
+
+    closeShowHandler = () => {
+        this.setState({purchasing: false})
+    };
+
+    continueShowHandler = () => {
+        alert("test alert")
+    };
+
+
     render() {
         const disabledInfo = {
             ...this.state.ingredients
@@ -74,16 +90,23 @@ class BurgerBuilder extends Component {
         }
         return (
             <Aux>
+                <Modal show={this.state.purchasing} closed={this.closeShowHandler}>
+                    <OrderSummary ingredients={this.state.ingredients}
+                                  cancelled={this.closeShowHandler}
+                                  continued={this.continueShowHandler}
+                                  totalPrice={this.state.totalPrice}/>
+                </Modal>
                 <Burger ingredients={this.state.ingredients}/>
                 <BuildControls ingAdded={this.addHandler}
                                ingRemoved={this.removeHandler}
                                disInfo={disabledInfo}
                                price={this.state.totalPrice}
-                               purchaseable = {this.state.purchaseable}
+                               order={this.hideShowHandler}
+                               purchaseable={this.state.purchaseable}
                 />
             </Aux>
         )
     }
-};
+}
 
 export default BurgerBuilder;
