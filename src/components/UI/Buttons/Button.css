@@ -8,7 +8,6 @@
     padding: 10px;
     margin: 10px;
     font-weight: bold;
-    float:left;
 }
 
 .Button:first-of-type {
@@ -22,4 +21,8 @@
 
 .Danger {
     color: #944317;
+}
+
+.ButtonPosition{
+    display: inline-block;
 }
