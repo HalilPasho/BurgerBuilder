@@ -10,3 +10,4 @@ In the project directory, you can run:
 
 ### `npm run eject`
 
+Redux will be implemented soon...
